@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.sinWebflux.model.Persons;
@@ -37,17 +38,21 @@ public class PersonsController {
 	}
 	
 	@PostMapping
-	private Boolean save(@RequestBody Persons customer) {
+	private Boolean save(@RequestBody Persons customer, @RequestParam String customerId) {
 		
-		return personsService.save(customer);
+		personsService.save(customer, customerId);
+		
+		return true;
 	}
 	
 	@PutMapping("/{id}")
-	private Boolean update(@PathVariable String id, @RequestBody Persons customer) {
+	private Boolean update(@PathVariable String id, @RequestBody Persons persons) {
 		
-		customer.set_id(id);
+		persons.set_id(id);
 		
-		return personsService.save(customer);
+		personsService.update(persons);
+		
+		return true;
 	}
 
 }

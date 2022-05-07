@@ -1,8 +1,10 @@
 package com.example.sinWebflux.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -29,8 +31,10 @@ public class Customers {
 	@JsonInclude(Include.NON_NULL)
 	private String document;
 	
-	private List<Persons> persons;
+	@DBRef
+	private List<Persons> persons = new ArrayList<>();
 	
-	private List<Accounts> accounts;
+	@DBRef
+	private List<Accounts> accounts = new ArrayList<>();
 
 }

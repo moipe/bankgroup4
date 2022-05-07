@@ -10,5 +10,7 @@ public interface CustomersService {
 	List<Customers> finAll();
 	
 	Optional<Customers> findById(String id);
+	
+	Boolean save(Customers customers);
 
 }

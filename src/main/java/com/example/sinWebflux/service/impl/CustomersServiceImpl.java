@@ -31,7 +31,13 @@ public class CustomersServiceImpl implements CustomersService{
 		
 		return Optional.ofNullable(customer);
 	}
-	
-	
 
+	@Override
+	public Boolean save(Customers customers) {
+		
+		customersRepository.save(customers);
+		
+		return true;
+	}
+	
 }

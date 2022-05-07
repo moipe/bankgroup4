@@ -1,8 +1,10 @@
 package com.example.sinWebflux.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.AllArgsConstructor;
@@ -18,10 +20,12 @@ public class Accounts {
 	@Id
 	private String _id;
 	
-	private String balance;
+	private Double balance;
 	
+	@DBRef
 	private Products products;
 	
-	private List<Transactions> transactions;
-	
+	@DBRef
+	private List<Transactions> transactions =  new ArrayList<>();
+
 }

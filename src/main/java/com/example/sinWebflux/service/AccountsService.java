@@ -10,5 +10,7 @@ public interface AccountsService {
 	List<Accounts> findAll();
 	
 	Optional<Accounts> findById(String id);
+	
+	Boolean save(Accounts accounts, String productId, String customerId);
 
 }

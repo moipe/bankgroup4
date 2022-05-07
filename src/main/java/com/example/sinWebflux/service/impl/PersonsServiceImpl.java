@@ -6,7 +6,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.sinWebflux.model.Customers;
 import com.example.sinWebflux.model.Persons;
+import com.example.sinWebflux.repository.CustomersRepository;
 import com.example.sinWebflux.repository.PersonsRepository;
 import com.example.sinWebflux.service.PersonsService;
 
@@ -15,6 +17,9 @@ public class PersonsServiceImpl implements PersonsService{
 	
 	@Autowired
 	private PersonsRepository personsRepository;
+	
+	@Autowired
+	private CustomersRepository customersRepository;
 
 	@Override
 	public List<Persons> findAll() {
@@ -27,27 +32,33 @@ public class PersonsServiceImpl implements PersonsService{
 	@Override
 	public Optional<Persons> findById(String id) {
 		
-		Persons customer = personsRepository.findById(id).get();
+		Persons persons = personsRepository.findById(id).get();
 		
-		return Optional.ofNullable(customer);
+		return Optional.ofNullable(persons);
 	}
 
 	@Override
-	public Boolean save(Persons customer) {
+	public Boolean save(Persons persons, String customerId) {
 		
-		personsRepository.save(customer);
+		Customers customer = customersRepository.findById(customerId).get();
+		
+		Persons oPersons = personsRepository.save(persons);
+		
+		customer.getPersons().add(oPersons);
+		
+		customersRepository.save(customer);
 		
 		return true;
 	}
 
 	@Override
-	public Boolean update(Persons customer) {
+	public Boolean update(Persons persons) {
 		
-		Persons customer1 = personsRepository.findById(customer.get_id()).get();
+		Persons persons1 = personsRepository.findById(persons.get_id()).get();
 		
-		customer1 = customer;
+		persons1 = persons;
 		
-		personsRepository.save(customer1);
+		personsRepository.save(persons1);
 		
 		return true;
 	}
